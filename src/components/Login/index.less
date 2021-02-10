@@ -1,0 +1,100 @@
+@import '~antd/es/style/themes/default.less';
+
+.xauth-lock-text-btn {
+  color: #396aff;
+  padding: 0;
+}
+
+.xauth-guard-tip-btn-comb {
+  margin-left: auto;
+}
+
+.xauth-ant-btn-text {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.xauth-guard-text-btn {
+  color: #396aff;
+  padding: 0;
+}
+
+.xauth-ant-form {
+  box-sizing: border-box;
+  color: rgba(0, 0, 0, 0.85);
+  font-feature-settings: 'tnum', 'tnum', 'tnum';
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.xauth-lock-form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.login {
+  :global {
+    .ant-tabs {
+      .ant-tabs-nav-list {
+        margin: auto;
+      }
+
+      .ant-tabs-bar {
+        margin-bottom: 24px;
+        text-align: center;
+        border-bottom: 0;
+      }
+    }
+  }
+
+  .getCaptcha {
+    display: block;
+    width: 100%;
+  }
+
+  .icon {
+    margin-left: 16px;
+    color: rgba(0, 0, 0, 0.2);
+    font-size: 24px;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: color 0.3s;
+
+    &:hover {
+      color: @primary-color;
+    }
+  }
+
+  .other {
+    margin-top: 24px;
+    line-height: 22px;
+    text-align: left;
+
+    .register {
+      float: right;
+    }
+  }
+
+  .prefixIcon {
+    color: @disabled-color;
+    font-size: @font-size-base;
+  }
+
+  .submit {
+    width: 100%;
+    margin-top: 24px;
+  }
+
+  .social-connections {
+    margin-top: 24px;
+    line-height: 22px;
+    text-align: left;
+  }
+}
