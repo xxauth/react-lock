@@ -1,4 +1,4 @@
-import { Card, Tabs, Form } from 'antd';
+import { Tabs, Form } from 'antd';
 import React, { useState } from 'react';
 import useMergeValue from 'use-merge-value';
 import classNames from 'classnames';

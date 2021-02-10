@@ -11,7 +11,7 @@ interface PhoneRegisterFormProps {
   onSendCaptcha?: (phone: string) => Promise<void>;
 }
 
-const PhoneRegisterForm: React.FC<MobileRegisterFormProps> = ({
+const PhoneRegisterForm: React.FC<PhoneRegisterFormProps> = ({
   initialValues,
   onFinish,
   onSendCaptcha,

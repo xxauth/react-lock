@@ -4,7 +4,7 @@ import { Form, Input, Button, message } from 'antd';
 import AuthLockContext from '@/context';
 import Captcha from '../Captcha';
 import Password from 'antd/lib/input/Password';
-import { LockTwoTone, MailTwoTone, MobileTwoTone } from '@ant-design/icons';
+import { LockTwoTone, MobileTwoTone } from '@ant-design/icons';
 import classnames from 'classnames';
 import styles from '../Login/index.less';
 import { EmailScene } from 'authing-sdk-js';
