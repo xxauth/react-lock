@@ -122,25 +122,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ config }) => {
     authClient.resetPhonePassword(mobile, code, password);
   };
 
-  const renderContent = () => {
-    if (!email && !mobile) {
-      return (
-        <Form form={form} onFinish={handleResetPassword}>
-          <Form.Item name="value">
-            <Input size="large" placeholder="请输入手机号或邮箱" />
-          </Form.Item>
-          <Button
-            size="large"
-            type="primary"
-            htmlType="submit"
-            style={{ width: '100%' }}
-          >
-            重置密码
-          </Button>
-        </Form>
-      );
-    }
-
+  const renderContent = (): JSX.Element => {
     if (email) {
       return (
         <ResetEmailForm
@@ -160,6 +142,22 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ config }) => {
         />
       );
     }
+
+    return (
+      <Form form={form} onFinish={handleResetPassword}>
+        <Form.Item name="value">
+          <Input size="large" placeholder="请输入手机号或邮箱" />
+        </Form.Item>
+        <Button
+          size="large"
+          type="primary"
+          htmlType="submit"
+          style={{ width: '100%' }}
+        >
+          重置密码
+        </Button>
+      </Form>
+    );
   };
 
   return (
