@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
-import { Tabs, Button } from 'antd';
+import { Tabs, Button, message } from 'antd';
 import AuthLockContext from '@/context';
-import MobileRegisterForm from './MobileRegisterForm';
+import PhoneRegisterForm from './PhoneRegisterForm';
 import EmailRegisterForm from './EmailRegisterForm';
 import classnames from 'classnames';
 import styles from '../Login/index.less';
@@ -13,24 +13,26 @@ const RegisterScene: React.FC<RegisterSceneProps> = ({}) => {
 
   const handleEmailRegister = () => {};
 
-  const handleMobileRegister = () => {};
+  const handlePhoneRegister = () => {};
 
-  const handleSendCaptcha = async () => {
-    return;
+  const handleSendCaptcha = async phone => {
+    try {
+      await authClient.sendSmsCode(phone);
+    } catch (e) {
+      message.error(e.message);
+      throw e;
+    }
   };
 
   return (
     <>
       <Tabs activeKey="email" centered>
         <Tabs.TabPane key="email" tab="邮箱注册">
-          <EmailRegisterForm
-            onFinish={handleEmailRegister}
-            onSendCaptcha={handleSendCaptcha}
-          />
+          <EmailRegisterForm onFinish={handleEmailRegister} />
         </Tabs.TabPane>
         <Tabs.TabPane key="phone" tab="手机号注册">
-          <MobileRegisterForm
-            onFinish={handleMobileRegister}
+          <PhoneRegisterForm
+            onFinish={handlePhoneRegister}
             onSendCaptcha={handleSendCaptcha}
           />
         </Tabs.TabPane>

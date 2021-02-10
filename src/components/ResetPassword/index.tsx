@@ -7,31 +7,38 @@ import Password from 'antd/lib/input/Password';
 import { LockTwoTone, MailTwoTone, MobileTwoTone } from '@ant-design/icons';
 import classnames from 'classnames';
 import styles from '../Login/index.less';
+import { EmailScene } from 'authing-sdk-js';
 
 const reEmail = /^\w+([-.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/; //信箱
 
 interface ResetEmailFormProps {
   initialValues: any;
   onFinish: (values) => void;
-  onSendCaptcha: () => Promise<void>;
 }
 
 const ResetEmailForm: React.FC<ResetEmailFormProps> = ({
   initialValues,
   onFinish,
-  onSendCaptcha,
 }) => {
   const [form] = useForm();
   return (
     <Form form={form} initialValues={initialValues} onFinish={onFinish}>
-      <Form.Item name="email">
-        <Input size="large" disabled prefix={<MailTwoTone />} />
-      </Form.Item>
+      <h3>
+        重置密码邮件已发送至邮箱 {initialValues['email']} 有效期为 24 小时。
+      </h3>
+      <Form.Item name="email" hidden></Form.Item>
       <Form.Item name="code">
-        <Captcha onSendCaptcha={onSendCaptcha} />
+        <Input placeholder="4位验证码" />
       </Form.Item>
       <Form.Item name="password">
-        <Password size="large" prefix={<LockTwoTone />} />
+        <Password size="large" placeholder="新密码" prefix={<LockTwoTone />} />
+      </Form.Item>
+      <Form.Item>
+        <Password
+          size="large"
+          placeholder="再输入一次密码"
+          prefix={<LockTwoTone />}
+        />
       </Form.Item>
       <Button
         size="large"
@@ -45,13 +52,13 @@ const ResetEmailForm: React.FC<ResetEmailFormProps> = ({
   );
 };
 
-interface ResetMobileFormProps {
+interface ResetPhoneFormProps {
   initialValues: any;
   onFinish: (values) => void;
   onSendCaptcha: () => Promise<void>;
 }
 
-const ResetMobileForm: React.FC<ResetMobileFormProps> = ({
+const ResetPhoneForm: React.FC<ResetPhoneFormProps> = ({
   initialValues,
   onFinish,
   onSendCaptcha,
@@ -60,7 +67,7 @@ const ResetMobileForm: React.FC<ResetMobileFormProps> = ({
 
   return (
     <Form form={form} initialValues={initialValues} onFinish={onFinish}>
-      <Form.Item name="mobile">
+      <Form.Item name="phone">
         <Input size="large" disabled prefix={<MobileTwoTone />} />
       </Form.Item>
       <Form.Item name="password">
@@ -89,22 +96,35 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ config }) => {
   const { authClient, setScene } = useContext(AuthLockContext);
 
   const [email, setEmail] = useState();
-  const [mobile, setMobile] = useState();
+  const [phone, setPhone] = useState();
 
   const [form] = useForm();
 
-  const handleResetPassword = values => {
+  const handleResetPassword = async values => {
     const value = values['value'];
     if (reEmail.test(value)) {
-      setEmail(value);
+      try {
+        const { code, message: msg } = await authClient.sendEmail(
+          value,
+          EmailScene.ResetPassword,
+        );
+
+        if (code !== 0) {
+          message.error(msg);
+        } else {
+          setEmail(value);
+        }
+      } catch (e) {
+        message.error(e.message);
+      }
     } else {
-      setMobile(value);
+      setPhone(value);
     }
   };
 
   const handleSendCaptcha = async (): Promise<void> => {
     try {
-      await authClient.sendSmsCode(mobile);
+      await authClient.sendSmsCode(phone);
       return;
     } catch (e) {
       message.error(e.message);
@@ -117,9 +137,9 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ config }) => {
     authClient.resetEmailPassword(email, code, password);
   };
 
-  const handleResetMobilePassword = values => {
-    const { mobile, code, password } = values;
-    authClient.resetPhonePassword(mobile, code, password);
+  const handleResetPhonePassword = values => {
+    const { phone, code, password } = values;
+    authClient.resetPhonePassword(phone, code, password);
   };
 
   const renderContent = (): JSX.Element => {
@@ -128,16 +148,15 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ config }) => {
         <ResetEmailForm
           initialValues={{ email }}
           onFinish={handleResetEmailPassword}
-          onSendCaptcha={handleSendCaptcha}
         />
       );
     }
 
-    if (mobile) {
+    if (phone) {
       return (
-        <ResetMobileForm
-          initialValues={{ mobile }}
-          onFinish={handleResetMobilePassword}
+        <ResetPhoneForm
+          initialValues={{ phone }}
+          onFinish={handleResetPhonePassword}
           onSendCaptcha={handleSendCaptcha}
         />
       );

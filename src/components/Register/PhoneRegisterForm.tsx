@@ -5,13 +5,13 @@ import { LockTwoTone, MobileTwoTone } from '@ant-design/icons';
 import Password from 'antd/lib/input/Password';
 import Captcha from '../Captcha';
 
-interface MobileRegisterFormProps {
+interface PhoneRegisterFormProps {
   initialValues?: any;
   onFinish?: (values: any) => void;
-  onSendCaptcha?: () => Promise<void>;
+  onSendCaptcha?: (phone: string) => Promise<void>;
 }
 
-const MobileRegisterForm: React.FC<MobileRegisterFormProps> = ({
+const PhoneRegisterForm: React.FC<MobileRegisterFormProps> = ({
   initialValues,
   onFinish,
   onSendCaptcha,
@@ -30,7 +30,9 @@ const MobileRegisterForm: React.FC<MobileRegisterFormProps> = ({
         <Password prefix={<LockTwoTone />} />
       </Form.Item>
       <Form.Item name="code">
-        <Captcha onSendCaptcha={onSendCaptcha} />
+        <Captcha
+          onSendCaptcha={() => onSendCaptcha?.(form.getFieldValue('phone'))}
+        />
       </Form.Item>
       <Button type="primary" htmlType="submit">
         注册
@@ -39,4 +41,4 @@ const MobileRegisterForm: React.FC<MobileRegisterFormProps> = ({
   );
 };
 
-export default MobileRegisterForm;
+export default PhoneRegisterForm;
