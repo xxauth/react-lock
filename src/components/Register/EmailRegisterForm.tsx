@@ -16,13 +16,43 @@ const EmailRegisterForm: React.FC<EmailRegisterFormProps> = ({
   const [form] = useForm();
   return (
     <Form initialValues={initialValues} form={form} onFinish={onFinish}>
-      <Form.Item name="email">
+      <Form.Item
+        name="email"
+        rules={[{ required: true, message: '请输入邮箱' }]}
+      >
         <Input size="large" prefix={<MailTwoTone />} />
       </Form.Item>
-      <Form.Item name="password">
+      <Form.Item
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: '请输入密码',
+          },
+          { pattern: /^.{6,}$/, message: '密码长度至少为 6 位' },
+        ]}
+      >
         <Password size="large" prefix={<LockTwoTone />} />
       </Form.Item>
-      <Form.Item>
+      <Form.Item
+        name="new_password"
+        rules={[
+          {
+            required: true,
+            message: '请输入确认密码!',
+          },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject(
+                '必须和密码一致!',
+              );
+            },
+          }),
+        ]}
+      >
         <Password size="large" prefix={<LockTwoTone />} />
       </Form.Item>
       <Button

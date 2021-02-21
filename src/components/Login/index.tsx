@@ -94,11 +94,7 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
 
   const handleGetCaptcha = async (mobile: string): Promise<boolean> => {
     try {
-      const { code, message: msg } = await authClient.sendSmsCode(mobile);
-      if (code !== 0) {
-        message.error(msg);
-        return false;
-      }
+      await authClient.sendSmsCode(mobile);
       return true;
     } catch (e) {
       message.error(e.message);

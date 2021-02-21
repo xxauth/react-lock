@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Tabs, Button, message } from 'antd';
 import AuthLockContext from '@/context';
 import PhoneRegisterForm from './PhoneRegisterForm';
@@ -10,10 +10,25 @@ interface RegisterSceneProps {}
 
 const RegisterScene: React.FC<RegisterSceneProps> = ({}) => {
   const { authClient, setScene } = useContext(AuthLockContext);
+  const [registerType, setRegisterType] = useState<string>('email');
 
-  const handleEmailRegister = () => {};
+  const handleEmailRegister = async ({ email, password }) => {
+    try {
+      await authClient.registerByEmail(email, password);
+      message.success('注册成功：' + email);
+    } catch (e) {
+      message.error('注册失败，请重试！' + e);
+    }
+  };
 
-  const handlePhoneRegister = () => {};
+  const handlePhoneRegister = async ({ phone, code, password }) => {
+    try {
+      await authClient.registerByPhoneCode(phone, code, password);
+      message.success('注册成功：' + phone);
+    } catch (e) {
+      message.error('注册失败，请重试！' + e);
+    }
+  };
 
   const handleSendCaptcha = async phone => {
     try {
@@ -26,7 +41,7 @@ const RegisterScene: React.FC<RegisterSceneProps> = ({}) => {
 
   return (
     <>
-      <Tabs activeKey="email" centered>
+      <Tabs defaultActiveKey={registerType} onChange={setRegisterType} centered>
         <Tabs.TabPane key="email" tab="邮箱注册">
           <EmailRegisterForm onFinish={handleEmailRegister} />
         </Tabs.TabPane>
