@@ -10,7 +10,7 @@ import AuthLockContext from '../../context';
 import styles from './index.less';
 
 const IconFont = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_638857_3rs7l9adudz.js',
+  scriptUrl: '//at.alicdn.com/t/font_2380157_yhzj077ejc.js',
 });
 
 const LoginMessage: React.FC<{
@@ -25,21 +25,6 @@ const LoginMessage: React.FC<{
     showIcon
   />
 );
-
-const oauthMap = {
-  'wechatwork:service-provider:qrconnect': {
-    icon: 'icon-icon-test',
-    provider: 'wechatwork:service-provider:qrconnect',
-  },
-  'wechat:pc': {
-    icon: 'icon-we-chat',
-    provider: 'wechat:pc',
-  },
-  'tiktok:pc': {
-    icon: 'icon-douyin',
-    provider: 'tiktok:pc',
-  },
-};
 
 interface LoginSceneProps {
   onLogin?: (user: any) => void;
@@ -101,10 +86,6 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
       return false;
     }
   };
-
-  const socialConnections = config?.socialConnections
-    ?.map(it => oauthMap[it])
-    ?.filter(it => !!it);
 
   return (
     <LoginForm
@@ -202,11 +183,12 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
       </div>
       <div className={styles['social-connections']}>
         其他登录方式
-        {socialConnections?.map((item, i) => (
+        {config?.socialConnections?.map((item, i) => (
           <IconFont
+            title={ _.first(item.split(':')) }
             key={i.toString()}
-            type={item.icon}
-            onClick={handleOAuthLogin(item.provider)}
+            type={`icon-${_.first(item.split(':'))}`}
+            onClick={handleOAuthLogin(item)}
             className={styles.icon}
           />
         ))}
