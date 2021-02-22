@@ -5,10 +5,11 @@ import classnames from 'classnames';
 import { message, Alert, Button } from 'antd';
 
 import { createFromIconfontCN } from '@ant-design/icons';
-const { Tab, Username, Password, Mobile, Captcha, Submit } = LoginForm;
 import AuthLockContext from '../../context';
 import styles from './index.less';
+import _ from 'lodash';
 
+const { Tab, Username, Password, Mobile, Captcha, Submit } = LoginForm;
 const IconFont = createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_2380157_yhzj077ejc.js',
 });
