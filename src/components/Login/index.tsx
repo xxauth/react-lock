@@ -8,6 +8,7 @@ import { createFromIconfontCN } from '@ant-design/icons';
 const { Tab, Username, Password, Mobile, Captcha, Submit } = LoginForm;
 import AuthLockContext from '../../context';
 import styles from './index.less';
+import _ from 'lodash';
 
 const IconFont = createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_2380157_yhzj077ejc.js',
@@ -185,7 +186,7 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
         其他登录方式
         {config?.socialConnections?.map((item, i) => (
           <IconFont
-            title={ _.first(item.split(':')) }
+            title={_.first(item.split(':'))}
             key={i.toString()}
             type={`icon-${_.first(item.split(':'))}`}
             onClick={handleOAuthLogin(item)}
