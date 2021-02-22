@@ -5,12 +5,8 @@ import { message, Alert, Button } from 'antd';
 
 import { createFromIconfontCN } from '@ant-design/icons';
 import AuthLockContext from '../../context';
-<<<<<<< HEAD
-import styles from './index.less';
-=======
 import './index.less';
 import _ from 'lodash';
->>>>>>> c3ebe61c16cca6140e81550ce7a52d792fdde090
 
 const { Tab, Username, Password, Mobile, Captcha, Submit } = LoginForm;
 const IconFont = createFromIconfontCN({
