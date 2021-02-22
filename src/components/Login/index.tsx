@@ -1,12 +1,16 @@
 import React, { useState, useContext } from 'react';
 
 import LoginForm from './LoginForm';
-import classnames from 'classnames';
 import { message, Alert, Button } from 'antd';
 
 import { createFromIconfontCN } from '@ant-design/icons';
 import AuthLockContext from '../../context';
+<<<<<<< HEAD
 import styles from './index.less';
+=======
+import './index.less';
+import _ from 'lodash';
+>>>>>>> c3ebe61c16cca6140e81550ce7a52d792fdde090
 
 const { Tab, Username, Password, Mobile, Captcha, Submit } = LoginForm;
 const IconFont = createFromIconfontCN({
@@ -92,11 +96,11 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
       activeKey={loginType}
       onTabChange={setLoginType}
       onSubmit={handleSubmit}
-      className={styles.login}
+      className="xauth-login"
     >
       <Tab key="account" tab="密码登录">
         {loginStatus === 'error' && loginType === 'account' && !submitting && (
-          <LoginMessage content="账户或密码错误（admin/ant.design）" />
+          <LoginMessage content="账户或密码错误" />
         )}
 
         <Username
@@ -154,34 +158,26 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
         />
       </Tab>
       <Submit loading={submitting}>登录</Submit>
-      <div className={styles['xauth-lock-form-actions']}>
+      <div className="xauth-lock-form-actions">
         <Button
           type="link"
-          className={classnames(
-            styles['xauth-ant-btn'],
-            styles['xauth-ant-btn-text'],
-            styles['xauth-guard-text-btn'],
-          )}
+          className="xauth-ant-btn xauth-ant-btn-text xauth-guard-text-btn"
           onClick={() => setScene('reset_password')}
         >
           忘记密码？
         </Button>
-        <div className={styles['xauth-lock-tip-btn-comb']}>
-          <span className={styles['xauth-guard-tip']}>还没有账号，</span>
+        <div className="xauth-lock-tip-btn-comb">
+          <span className="xauth-guard-tip">还没有账号，</span>
           <Button
             type="link"
-            className={classnames(
-              styles['xauth-ant-btn'],
-              styles['xauth-ant-btn-text'],
-              styles['xauth-guard-text-btn'],
-            )}
+            className="xauth-ant-btn xauth-ant-btn-text xauth-guard-text-btn"
             onClick={() => setScene('register')}
           >
             立即注册
           </Button>
         </div>
       </div>
-      <div className={styles['social-connections']}>
+      <div className="social-connections">
         其他登录方式
         {config?.socialConnections?.map((item, i) => (
           <IconFont
@@ -189,7 +185,7 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
             key={i.toString()}
             type={`icon-${parsePlatform(item)}`}
             onClick={handleOAuthLogin(item)}
-            className={styles.icon}
+            className="icon"
           />
         ))}
       </div>

@@ -18,6 +18,7 @@
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "typings": "dist/index.d.ts",
+  "sideEffects": false,
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
