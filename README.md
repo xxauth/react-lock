@@ -54,3 +54,12 @@ const Demo = () => {
 
 export default Demo;
 ```
+
+
+### 模块开发规范
+- 模块开发中不建议使用 CssModules 的主要原因, 导致项目无法替换样式
+
+
+#### dumiu框架构建的产物，在项目中引用导致样式丢失
+1. .fatherrc.js
+中配置 extractCSS: true
