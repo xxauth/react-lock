@@ -7,7 +7,6 @@ import { message, Alert, Button } from 'antd';
 import { createFromIconfontCN } from '@ant-design/icons';
 import AuthLockContext from '../../context';
 import styles from './index.less';
-import _ from 'lodash';
 
 const { Tab, Username, Password, Mobile, Captcha, Submit } = LoginForm;
 const IconFont = createFromIconfontCN({
@@ -186,9 +185,9 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
         其他登录方式
         {config?.socialConnections?.map((item, i) => (
           <IconFont
-            title={_.first(item.split(':'))}
+            title={parsePlatform(item)}
             key={i.toString()}
-            type={`icon-${_.first(item.split(':'))}`}
+            type={`icon-${parsePlatform(item)}`}
             onClick={handleOAuthLogin(item)}
             className={styles.icon}
           />
@@ -197,5 +196,15 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
     </LoginForm>
   );
 };
+
+function parsePlatform(identifier: string): string {
+  if (!identifier) return null;
+
+  const items = identifier.split(':');
+  if (items.length > 0) {
+    return items[0];
+  }
+  return null;
+}
 
 export default LoginScene;

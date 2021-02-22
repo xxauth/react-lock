@@ -49,7 +49,15 @@ const Demo = () => {
     console.log('登录结果', user);
   };
 
-  return <AuthLock appId="abc" onLogin={handleLogin} />;
+  const config = {
+    socialConnections: [
+      'wechat:pc',
+      'wechatwork:service-provider:qrconnect',
+      'douyin:pc',
+    ],
+  };
+
+  return <AuthLock appId="abc" config={config} onLogin={handleLogin} />;
 };
 
 export default Demo;

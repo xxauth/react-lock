@@ -7,17 +7,16 @@ export default defineConfig({
   navs: [
     null,
     {
-      title: 'FormRender',
-      path: 'https://x-render.gitee.io/form-render/',
+      title: 'AuthLock',
+      path: 'https://github.com./xxauth/react-lock',
     },
     {
       title: 'GitHub',
-      path: 'https://github.com/newtalentxp/module-editor',
+      path: 'https://github.com./xxauth/react-lock',
     },
     {
       title: '更新日志',
-      path:
-        'https://github.com/newtalentxp/module-editor/blob/master/CHANGELOG.md',
+      path: 'https://github.com./xxauth/react-lock/blob/master/CHANGELOG.md',
     },
   ],
   outputPath: 'docs-dist',

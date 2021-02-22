@@ -1,4 +1,4 @@
-@import '~antd/es/style/themes/default.less';
+@import (reference) '~antd/lib/style/themes/default';
 
 .xauth-lock-text-btn {
   color: #396aff;
@@ -68,7 +68,7 @@
     transition: color 0.3s;
 
     &:hover {
-      color: @primary-color;
+      color: #1890ff;
     }
   }
 
@@ -83,8 +83,8 @@
   }
 
   .prefixIcon {
-    color: @disabled-color;
-    font-size: @font-size-base;
+    color: fade(#000, 25%);
+    font-size: 14px;
   }
 
   .submit {

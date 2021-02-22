@@ -6,7 +6,21 @@ const Demo = () => {
     console.log('登录结果', e);
   };
 
-  return <AuthLock appId="123" onLogin={handleLogin} />;
+  const config = {
+    socialConnections: [
+      'wechat:pc',
+      'wechatwork:service-provider:qrconnect',
+      'tiktok:pc',
+    ],
+  };
+
+  return (
+    <AuthLock
+      appId="261ec84ac2e64522b25270380fd1e4d0"
+      config={config}
+      onLogin={handleLogin}
+    />
+  );
 };
 
 export default Demo;

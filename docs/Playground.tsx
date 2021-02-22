@@ -14,7 +14,13 @@ const Demo = () => {
     ],
   };
 
-  return <AuthLock appId="123" onLogin={handleLogin} config={config} />;
+  return (
+    <AuthLock
+      appId="261ec84ac2e64522b25270380fd1e4d0"
+      onLogin={handleLogin}
+      config={config}
+    />
+  );
 };
 
 export default Demo;
