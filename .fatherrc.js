@@ -4,7 +4,6 @@ import commonjs from 'rollup-plugin-commonjs';
 export default {
   cjs: 'rollup',
   esm: 'rollup',
-
   lessInBabelMode: true,
   extractCSS: true,
   extraBabelPlugins: [
