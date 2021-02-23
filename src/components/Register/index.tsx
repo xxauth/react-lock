@@ -4,7 +4,6 @@ import AuthLockContext from '@/context';
 import PhoneRegisterForm from './PhoneRegisterForm';
 import EmailRegisterForm from './EmailRegisterForm';
 import classnames from 'classnames';
-import styles from '../Login/index.less';
 
 interface RegisterSceneProps {}
 
@@ -52,15 +51,15 @@ const RegisterScene: React.FC<RegisterSceneProps> = ({}) => {
           />
         </Tabs.TabPane>
       </Tabs>
-      <div className={styles['xauth-lock-form-actions']}>
-        <div className={styles['xauth-lock-tip-btn-comb']}>
-          <span className={styles['xauth-guard-tip']}>已有账号，</span>
+      <div className="xauth-lock-form-actions">
+        <div className="xauth-lock-tip-btn-comb">
+          <span className="xauth-guard-tip">已有账号，</span>
           <Button
             type="link"
             className={classnames(
-              styles['xauth-ant-btn'],
-              styles['xauth-ant-btn-text'],
-              styles['xauth-guard-text-btn'],
+              'xauth-ant-btn',
+              'xauth-ant-btn-text',
+              'xauth-guard-text-btn',
             )}
             onClick={() => setScene('login')}
           >

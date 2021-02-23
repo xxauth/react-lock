@@ -8,7 +8,6 @@ import LoginContext from './LoginContext';
 import LoginItem, { LoginItemProps } from './LoginItem';
 import LoginSubmit from './LoginSubmit';
 import LoginTab from './LoginTab';
-import styles from './index.less';
 
 export interface LoginProps {
   activeKey?: string;
@@ -97,7 +96,7 @@ const Login: LoginType = ({
             <Tabs
               destroyInactiveTabPane
               animated={false}
-              className={styles.tabs}
+              className="tabs"
               activeKey={tabActiveType}
               onChange={activeKey => {
                 setType(activeKey);
