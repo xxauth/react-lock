@@ -44,13 +44,13 @@
     "copy-text-to-clipboard": "^2.2.0",
     "omit.js": "^2.0.2",
     "react": "^17.0.1",
-    "use-merge-value": "^1.0.2"
+    "use-merge-value": "^1.0.2",
+    "antd": "^4.4.2",
+    "@ant-design/icons": "^4.3.0"
   },
   "devDependencies": {
-    "@ant-design/icons": "^4.3.0",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.0.5",
-    "antd": "^4.4.2",
     "babel-plugin-import": "^1.13.0",
     "dumi": "^1.0.34",
     "father-build": "^1.17.2",

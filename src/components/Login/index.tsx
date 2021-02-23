@@ -6,11 +6,10 @@ import { message, Alert, Button } from 'antd';
 import { createFromIconfontCN } from '@ant-design/icons';
 import AuthLockContext from '../../context';
 import './index.less';
-import _ from 'lodash';
 
 const { Tab, Username, Password, Mobile, Captcha, Submit } = LoginForm;
 const IconFont = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_2380157_yhzj077ejc.js',
+  scriptUrl: '//at.alicdn.com/t/font_2380157_6nb47ktmtl9.js',
 });
 
 const LoginMessage: React.FC<{
@@ -78,6 +77,11 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
   };
 
   const handleGetCaptcha = async (mobile: string): Promise<boolean> => {
+    if (!/^1\d{10}$/.test(mobile)) {
+      message.error('请输入正确的手机号码');
+      return false;
+    }
+
     try {
       await authClient.sendSmsCode(mobile);
       return true;

@@ -154,6 +154,7 @@ Object.keys(ItemMap).forEach(key => {
     <LoginContext.Consumer>
       {context => (
         <LoginItem
+          key={key.toString()}
           customProps={item.props}
           rules={item.rules}
           {...props}
