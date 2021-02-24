@@ -6,7 +6,6 @@ import Captcha from '../Captcha';
 import Password from 'antd/lib/input/Password';
 import { LockTwoTone, MobileTwoTone } from '@ant-design/icons';
 import classnames from 'classnames';
-import styles from '../Login/index.less';
 import { EmailScene } from 'authing-sdk-js';
 
 const reEmail = /^\w+([-.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/; //信箱
@@ -182,12 +181,12 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ config }) => {
   return (
     <>
       {renderContent()}
-      <div className={styles['xauth-lock-form-actions']}>
+      <div className="xauth-lock-form-actions">
         <Button
           className={classnames(
-            styles['xauth-ant-btn'],
-            styles['xauth-ant-btn-text'],
-            styles['xauth-guard-text-btn'],
+            'xauth-ant-btn',
+            'xauth-ant-btn-text',
+            'xauth-guard-text-btn',
           )}
           type="link"
           onClick={() => setScene('login')}

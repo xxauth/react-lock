@@ -5,7 +5,6 @@ import { FormItemProps } from 'antd/es/form/FormItem';
 
 import ItemMap from './map';
 import LoginContext, { LoginContextProps } from './LoginContext';
-import styles from './index.less';
 
 export type WrappedLoginItemProps = LoginItemProps;
 export type LoginItemKeyType = keyof typeof ItemMap;
@@ -124,7 +123,7 @@ const LoginItem: React.FC<LoginItemProps> = props => {
             <Col span={8}>
               <Button
                 disabled={timing}
-                className={styles.getCaptcha}
+                className="getCaptcha"
                 size="large"
                 onClick={() => {
                   const value = getFieldValue('mobile');
