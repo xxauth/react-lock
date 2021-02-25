@@ -5,10 +5,10 @@ import AuthLockContext from '@/context';
 import Captcha from '../Captcha';
 import Password from 'antd/lib/input/Password';
 import { LockTwoTone, MobileTwoTone } from '@ant-design/icons';
-import classnames from 'classnames';
 import { EmailScene } from 'authing-sdk-js';
 
-const reEmail = /^\w+([-.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/; //信箱
+const reEmail = '\\w+([-.]w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*'; //信箱
+const rePhone = '1\\d{10}';
 
 interface ResetEmailFormProps {
   initialValues: any;
@@ -69,11 +69,46 @@ const ResetPhoneForm: React.FC<ResetPhoneFormProps> = ({
       <Form.Item name="phone">
         <Input size="large" disabled prefix={<MobileTwoTone />} />
       </Form.Item>
-      <Form.Item name="password">
-        <Password size="large" />
+      <Form.Item
+        name="password"
+        rules={[{ required: true, message: '请输入新密码' }]}
+      >
+        <Password size="large" placeholder="新密码" prefix={<LockTwoTone />} />
       </Form.Item>
-      <Form.Item name="code">
-        <Captcha onSendCaptcha={onSendCaptcha} />
+      <Form.Item
+        name="re-password"
+        rules={[
+          { required: true, message: '请输入确认密码' },
+          ({ getFieldValue }) => ({
+            validator(_, value) {
+              if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+              }
+              return Promise.reject('必须和密码一致!');
+            },
+          }),
+        ]}
+      >
+        <Password
+          size="large"
+          placeholder="再输入一次密码"
+          prefix={<LockTwoTone />}
+        />
+      </Form.Item>
+      <Form.Item
+        name="code"
+        rules={[{ required: true, message: '请输入短信验证码' }]}
+      >
+        <Captcha
+          onSendCaptcha={() => {
+            const phone = form.getFieldValue('phone');
+            if (!new RegExp(`^${rePhone}$`).test(phone)) {
+              message.error('请输入正确的手机号码!');
+              return Promise.reject();
+            }
+            return onSendCaptcha();
+          }}
+        />
       </Form.Item>
       <Button
         size="large"
@@ -101,13 +136,14 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ config }) => {
 
   const handleResetPassword = async values => {
     const value = values['value'];
-    if (reEmail.test(value)) {
+
+    if (new RegExp(`^${reEmail}$`).test(value)) {
       try {
         const { code, message: msg } = await authClient.sendEmail(
           value,
           EmailScene.ResetPassword,
         );
-
+        console.log('message', msg);
         if (code !== 0) {
           message.error(msg);
         } else {
@@ -123,7 +159,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ config }) => {
 
   const handleSendCaptcha = async (): Promise<void> => {
     try {
-      await authClient.sendSmsCode(phone);
+      await authClient.sendResetPasswordSmsCode(phone);
       return;
     } catch (e) {
       message.error(e.message);
@@ -133,12 +169,24 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ config }) => {
 
   const handleResetEmailPassword = values => {
     const { email, code, password } = values;
-    authClient.resetEmailPassword(email, code, password);
+    try {
+      authClient.resetEmailPassword(email, code, password);
+      setScene('login');
+      message.success('密码修改成功!');
+    } catch (e) {
+      message.error(e);
+    }
   };
 
   const handleResetPhonePassword = values => {
     const { phone, code, password } = values;
-    authClient.resetPhonePassword(phone, code, password);
+    try {
+      authClient.resetPhonePassword(phone, code, password);
+      setScene('login');
+      message.success('密码修改成功!');
+    } catch (e) {
+      message.error(e);
+    }
   };
 
   const renderContent = (): JSX.Element => {
@@ -163,7 +211,19 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ config }) => {
 
     return (
       <Form form={form} onFinish={handleResetPassword}>
-        <Form.Item name="value">
+        <Form.Item
+          name="value"
+          rules={[
+            {
+              required: true,
+              message: '请输入手机号或邮箱',
+            },
+            {
+              pattern: new RegExp(`^${reEmail}|${rePhone}$`),
+              message: '请输入正确的手机号或邮箱',
+            },
+          ]}
+        >
           <Input size="large" placeholder="请输入手机号或邮箱" />
         </Form.Item>
         <Button
@@ -183,11 +243,7 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ config }) => {
       {renderContent()}
       <div className="xauth-lock-form-actions">
         <Button
-          className={classnames(
-            'xauth-ant-btn',
-            'xauth-ant-btn-text',
-            'xauth-guard-text-btn',
-          )}
+          className="xauth-ant-btn xauth-ant-btn-text  xauth-guard-text-btn"
           type="link"
           onClick={() => setScene('login')}
         >

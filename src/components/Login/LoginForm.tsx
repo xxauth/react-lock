@@ -1,7 +1,6 @@
 import { Tabs, Form } from 'antd';
 import React, { useState } from 'react';
 import useMergeValue from 'use-merge-value';
-import classNames from 'classnames';
 import { FormInstance } from 'antd/es/form';
 
 import LoginContext from './LoginContext';
@@ -89,7 +88,7 @@ const Login: LoginType = ({
         onFinish={values => {
           onSubmit?.(values);
         }}
-        className={classNames(className)}
+        className={className}
       >
         {tabs.length ? (
           <>

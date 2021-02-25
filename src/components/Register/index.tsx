@@ -3,7 +3,6 @@ import { Tabs, Button, message } from 'antd';
 import AuthLockContext from '@/context';
 import PhoneRegisterForm from './PhoneRegisterForm';
 import EmailRegisterForm from './EmailRegisterForm';
-import classnames from 'classnames';
 
 interface RegisterSceneProps {}
 
@@ -56,11 +55,7 @@ const RegisterScene: React.FC<RegisterSceneProps> = ({}) => {
           <span className="xauth-guard-tip">已有账号，</span>
           <Button
             type="link"
-            className={classnames(
-              'xauth-ant-btn',
-              'xauth-ant-btn-text',
-              'xauth-guard-text-btn',
-            )}
+            className="xauth-ant-btn  xauth-ant-btn-text  xauth-guard-text-btn"
             onClick={() => setScene('login')}
           >
             立即登录

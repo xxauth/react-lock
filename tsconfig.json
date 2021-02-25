@@ -17,11 +17,13 @@
     "skipLibCheck": true,
     "experimentalDecorators": true,
     "strict": false,
+    "typeRoots": ["./typings"],
     "paths": {
       "@/*": ["./src/*"],
       "@@/*": ["./src/.umi/*"]
     }
   },
+
   "include": [
     "src/**/*",
     "tests/**/*",
