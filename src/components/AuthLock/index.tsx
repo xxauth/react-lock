@@ -57,6 +57,9 @@ const AuthLock: ForwardRefRenderFunction<any, AuthLockProps> = (
   const authClient = useMemo(() => {
     const authConfig: AuthenticationClientOptions = {
       appId: appId,
+      onError: (code, msg) => {
+        console.log(code, msg);
+      },
     };
     if (config?.apiHost) authConfig.host = config.apiHost;
 

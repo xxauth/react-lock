@@ -27,7 +27,7 @@ const PhoneRegisterForm: React.FC<PhoneRegisterFormProps> = ({
           { pattern: /^1\d{10}$/, message: '请输入正确的手机号码' },
         ]}
       >
-        <Input prefix={<MobileTwoTone />} />
+        <Input prefix={<MobileTwoTone />} placeholder="请输入手机号码"/>
       </Form.Item>
       <Form.Item
         name="password"
@@ -39,7 +39,7 @@ const PhoneRegisterForm: React.FC<PhoneRegisterFormProps> = ({
           { pattern: /^.{6,}$/, message: '密码长度至少为 6 位' },
         ]}
       >
-        <Password prefix={<LockTwoTone />} />
+        <Password prefix={<LockTwoTone />}  placeholder="请输入密码"/>
       </Form.Item>
       <Form.Item
         name="confirm"
@@ -58,7 +58,7 @@ const PhoneRegisterForm: React.FC<PhoneRegisterFormProps> = ({
           }),
         ]}
       >
-        <Password prefix={<LockTwoTone />} />
+        <Password prefix={<LockTwoTone />} placeholder="请输入确认密码"/>
       </Form.Item>
       <Form.Item
         name="code"

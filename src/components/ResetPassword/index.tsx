@@ -26,13 +26,37 @@ const ResetEmailForm: React.FC<ResetEmailFormProps> = ({
         重置密码邮件已发送至邮箱 {initialValues['email']} 有效期为 24 小时。
       </h3>
       <Form.Item name="email" hidden></Form.Item>
-      <Form.Item name="code">
-        <Input placeholder="4位验证码" />
+      <Form.Item
+        name="code"
+        rules={[
+          {
+            required: true,
+            message: '请输入验证码',
+          },
+        ]}
+      >
+        <Input placeholder="验证码" />
       </Form.Item>
-      <Form.Item name="password">
+      <Form.Item
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: '请输入新密码',
+          },
+        ]}
+      >
         <Password size="large" placeholder="新密码" prefix={<LockTwoTone />} />
       </Form.Item>
-      <Form.Item>
+      <Form.Item
+        name="re-password"
+        rules={[
+          {
+            required: true,
+            message: '请输入确认密码',
+          },
+        ]}
+      >
         <Password
           size="large"
           placeholder="再输入一次密码"
@@ -163,29 +187,28 @@ const ResetPassword: React.FC<ResetPasswordProps> = ({ config }) => {
       return;
     } catch (e) {
       message.error(e.message);
-      throw e;
     }
   };
 
-  const handleResetEmailPassword = values => {
+  const handleResetEmailPassword = async values => {
     const { email, code, password } = values;
     try {
-      authClient.resetEmailPassword(email, code, password);
+      await authClient.resetEmailPassword(email, code, password);
       setScene('login');
       message.success('密码修改成功!');
     } catch (e) {
-      message.error(e);
+      message.error(e.message);
     }
   };
 
-  const handleResetPhonePassword = values => {
+  const handleResetPhonePassword = async values => {
     const { phone, code, password } = values;
     try {
-      authClient.resetPhonePassword(phone, code, password);
+      await authClient.resetPhonePassword(phone, code, password);
       setScene('login');
       message.success('密码修改成功!');
     } catch (e) {
-      message.error(e);
+      message.error(e.message);
     }
   };
 

@@ -15,7 +15,8 @@ const RegisterScene: React.FC<RegisterSceneProps> = ({}) => {
       await authClient.registerByEmail(email, password);
       message.success('注册成功：' + email);
     } catch (e) {
-      message.error('注册失败，请重试！' + e);
+      message.error('注册失败，请重试！' + e.message);
+      throw e;
     }
   };
 
@@ -24,7 +25,8 @@ const RegisterScene: React.FC<RegisterSceneProps> = ({}) => {
       await authClient.registerByPhoneCode(phone, code, password);
       message.success('注册成功：' + phone);
     } catch (e) {
-      message.error('注册失败，请重试！' + e);
+      message.error('注册失败，请重试！' + e.message);
+      throw e;
     }
   };
 

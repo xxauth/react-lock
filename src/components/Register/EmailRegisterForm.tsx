@@ -20,7 +20,7 @@ const EmailRegisterForm: React.FC<EmailRegisterFormProps> = ({
         name="email"
         rules={[{ required: true, message: '请输入邮箱' }]}
       >
-        <Input size="large" prefix={<MailTwoTone />} />
+        <Input size="large" prefix={<MailTwoTone />} placeholder="请输入邮箱" />
       </Form.Item>
       <Form.Item
         name="password"
@@ -32,7 +32,7 @@ const EmailRegisterForm: React.FC<EmailRegisterFormProps> = ({
           { pattern: /^.{6,}$/, message: '密码长度至少为 6 位' },
         ]}
       >
-        <Password size="large" prefix={<LockTwoTone />} />
+        <Password size="large" prefix={<LockTwoTone />} placeholder="请输入密码"/>
       </Form.Item>
       <Form.Item
         name="new_password"
@@ -53,7 +53,7 @@ const EmailRegisterForm: React.FC<EmailRegisterFormProps> = ({
           }),
         ]}
       >
-        <Password size="large" prefix={<LockTwoTone />} />
+        <Password size="large" prefix={<LockTwoTone />} placeholder="请输入确认密码" />
       </Form.Item>
       <Button
         style={{ width: '100%' }}
