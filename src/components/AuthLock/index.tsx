@@ -12,6 +12,7 @@ import LoginScene from '../Login';
 import ResetPassword from '../ResetPassword';
 import LockContext from '@/context';
 import RegisterScene from '../Register';
+import _ from 'lodash';
 
 export interface AuthLockConfig {
   target?: HTMLElement; // 指定 Guard 表单的挂载点，接受 querySelector (opens new window)能接受的所有参数或者 dom 元素，若未传入，Guard 会自动生成一个 div 标签放入 body 的最后面
@@ -20,7 +21,7 @@ export interface AuthLockConfig {
   logo?: string; // 产品 logo
   loginMethods?: any[]; // 需要使用的普通登录(包括 LDAP)方式列表
   registerMethods?: any[]; // 需要使用的注册方式
-  defaultRegisterMethod?: any[]; // 默认展示的注册方式
+  defaultRegisterMethod?: any; // 默认展示的注册方式
   defaultScenes?: any[]; // 打开组件时展示的界面
   socialConnections?: string[]; // 需要使用的社会化登录列表
   enterpriseConnections?: string[]; // 需要使用的企业身份源列表(不包括 LDAP)，列表项值为配置的企业身份源唯一标识符，注意：企业身份源需要传入对应 appId 才能使用
@@ -38,6 +39,7 @@ export interface AuthLockConfig {
 interface AuthLockProps {
   appId: string;
   onLogin?: (user: any) => void;
+  onRegister?: (user: any) => void;
   config: AuthLockConfig;
 }
 
@@ -48,9 +50,17 @@ const sceneRenders = {
 };
 
 const AuthLock: ForwardRefRenderFunction<any, AuthLockProps> = (
-  { appId, onLogin, config },
+  { appId, onLogin, onRegister, config },
   ref,
 ) => {
+  let _config: AuthLockConfig = Object.assign(
+    {
+      registerMethods: ['email', 'phone'],
+      defaultRegisterMethod: 'email',
+    },
+    _.cloneDeep(config),
+  );
+
   const [scene, setScene] = useState('login');
 
   // 用户认证client，用于网站的登录注册/个人中心编辑等
@@ -61,7 +71,7 @@ const AuthLock: ForwardRefRenderFunction<any, AuthLockProps> = (
         console.log(code, msg);
       },
     };
-    if (config?.apiHost) authConfig.host = config.apiHost;
+    if (_config?.apiHost) authConfig.host = _config.apiHost;
 
     return new AuthenticationClient(authConfig);
   }, [config]);
@@ -74,11 +84,11 @@ const AuthLock: ForwardRefRenderFunction<any, AuthLockProps> = (
       }}
     >
       <Card
-        title={config?.title || '登录'}
+        title={_config?.title || '登录'}
         bordered={true}
         style={{ width: '420px' }}
       >
-        {sceneRenders[scene]?.({ appId, onLogin, config })}
+        {sceneRenders[scene]?.({ appId, onRegister, onLogin, config: _config })}
       </Card>
     </LockContext.Provider>
   );
