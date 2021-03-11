@@ -10,9 +10,9 @@ const Demo = () => {
   };
   const config = {
     socialConnections: [
-      'wechat:pc',
-      'wechatwork:service-provider:qrconnect',
-      'tiktok:pc',
+      'wechat-pc',
+      'wechatwork-service-provide-qrconnect',
+      'tiktok-pc',
     ],
   };
 

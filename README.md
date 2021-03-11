@@ -51,9 +51,9 @@ const Demo = () => {
 
   const config = {
     socialConnections: [
-      'wechat:pc',
-      'wechatwork:service-provider:qrconnect',
-      'douyin:pc',
+      'wechat-pc',
+      'wechatwork-service-provider-qrconnect',
+      'douyin-pc',
     ],
   };
 

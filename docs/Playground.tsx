@@ -12,9 +12,9 @@ const Demo = () => {
     // registerMethods: ['phone'],
     // defaultRegisterMethod: 'phone',
     socialConnections: [
-      'wechat:pc',
-      'wechatwork:service-provider:qrconnect',
-      'tiktok:pc',
+      'wechat-pc',
+      'wechatwork-service-provider-qrconnect',
+      'tiktok-pc',
     ],
   };
 
