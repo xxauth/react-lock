@@ -9,7 +9,7 @@ import '../../index.less'
 
 const { Tab, Username, Password, Mobile, Captcha, Submit } = LoginForm;
 const IconFont = createFromIconfontCN({
-  scriptUrl: '//at.alicdn.com/t/font_2380157_6nb47ktmtl9.js',
+  scriptUrl: '//at.alicdn.com/t/font_2380157_x3r34nj8por.js',
 });
 
 const LoginMessage: React.FC<{
@@ -196,7 +196,7 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
 function parsePlatform(identifier: string): string {
   if (!identifier) return null;
 
-  const items = identifier.split(':');
+  const items = identifier.split('-');
   if (items.length > 0) {
     return items[0];
   }

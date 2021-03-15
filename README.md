@@ -53,7 +53,7 @@ const Demo = () => {
     socialConnections: [
       'wechat-pc',
       'wechatwork-service-provider-qrconnect',
-      'douyin-pc',
+      'tiktok-pc',
     ],
   };
 
