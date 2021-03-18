@@ -19,7 +19,7 @@ const PhoneRegisterForm: React.FC<PhoneRegisterFormProps> = ({
   const [form] = useForm();
 
   return (
-    <Form form={form} initialValues={initialValues} onFinish={onFinish}>
+    <Form form={form} validateTrigger="onSubmit" initialValues={initialValues} onFinish={onFinish}>
       <Form.Item
         name="phone"
         rules={[

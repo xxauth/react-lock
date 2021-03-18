@@ -88,6 +88,7 @@ const Login: LoginType = ({
         onFinish={values => {
           onSubmit?.(values);
         }}
+        validateTrigger="onSubmit"
         className={className}
       >
         {tabs.length ? (

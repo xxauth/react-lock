@@ -5,14 +5,10 @@ import PhoneRegisterForm from './PhoneRegisterForm';
 import EmailRegisterForm from './EmailRegisterForm';
 
 interface RegisterSceneProps {
-  onRegister?: (user: any) => void;
   config: Record<string, any>;
 }
 
-const RegisterScene: React.FC<RegisterSceneProps> = ({
-  onRegister,
-  config,
-}) => {
+const RegisterScene: React.FC<RegisterSceneProps> = ({ config }) => {
   const { authClient, setScene } = useContext(AuthLockContext);
   const [registerType, setRegisterType] = useState<string>(
     config?.defaultRegisterMethod,
@@ -20,9 +16,8 @@ const RegisterScene: React.FC<RegisterSceneProps> = ({
 
   const handleEmailRegister = async ({ email, password }) => {
     try {
-      const user = await authClient.registerByEmail(email, password);
-      message.success('注册成功：' + email);
-      onRegister?.(user);
+      await authClient.registerByEmail(email, password);
+      console.log('注册成功：' + email);
     } catch (e) {
       message.error('注册失败，请重试！' + e.message);
       throw e;
@@ -31,9 +26,8 @@ const RegisterScene: React.FC<RegisterSceneProps> = ({
 
   const handlePhoneRegister = async ({ phone, code, password }) => {
     try {
-      const user = await authClient.registerByPhoneCode(phone, code, password);
-      message.success('注册成功：' + phone);
-      onRegister?.(user);
+      await authClient.registerByPhoneCode(phone, code, password);
+      console.log('注册成功：' + phone);
     } catch (e) {
       message.error('注册失败，请重试！' + e.message);
       throw e;

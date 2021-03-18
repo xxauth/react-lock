@@ -89,7 +89,12 @@ const ResetPhoneForm: React.FC<ResetPhoneFormProps> = ({
   const [form] = useForm();
 
   return (
-    <Form form={form} initialValues={initialValues} onFinish={onFinish}>
+    <Form
+      form={form}
+      initialValues={initialValues}
+      validateTrigger="onSubmit"
+      onFinish={onFinish}
+    >
       <Form.Item name="phone">
         <Input size="large" disabled prefix={<MobileTwoTone />} />
       </Form.Item>

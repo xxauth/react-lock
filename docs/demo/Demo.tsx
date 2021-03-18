@@ -21,7 +21,6 @@ const Demo = () => {
       appId="261ec84ac2e64522b25270380fd1e4d0"
       config={config}
       onLogin={handleLogin}
-      onRegister={handleRegister}
     />
   );
 };

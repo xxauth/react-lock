@@ -34,12 +34,12 @@ export interface AuthLockConfig {
   appDomain?: string; // SSO 模式时的 app 域名
   qrCodeScanOptions?: any; // 扫码登录配置
   apiHost?: string; // 私有部署时的 API 请求地址
+  backgroundStyle?: string; // 背景样式
 }
 
 interface AuthLockProps {
   appId: string;
   onLogin?: (user: any) => void;
-  onRegister?: (user: any) => void;
   config: AuthLockConfig;
 }
 
@@ -50,7 +50,7 @@ const sceneRenders = {
 };
 
 const AuthLock: ForwardRefRenderFunction<any, AuthLockProps> = (
-  { appId, onLogin, onRegister, config },
+  { appId, onLogin, config },
   ref,
 ) => {
   let _config: AuthLockConfig = Object.assign(
@@ -86,9 +86,9 @@ const AuthLock: ForwardRefRenderFunction<any, AuthLockProps> = (
       <Card
         title={_config?.title || '登录'}
         bordered={true}
-        style={{ width: '420px' }}
+        style={{ width: '420px', background: _config.backgroundStyle }}
       >
-        {sceneRenders[scene]?.({ appId, onRegister, onLogin, config: _config })}
+        {sceneRenders[scene]?.({ appId, onLogin, config: _config })}
       </Card>
     </LockContext.Provider>
   );
