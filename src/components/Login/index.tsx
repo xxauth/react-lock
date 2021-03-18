@@ -29,14 +29,17 @@ interface LoginSceneProps {
   onLogin?: (user: any) => void;
   config: Record<string, any>;
 }
-
+interface ErrorMessage {
+  code: number;
+  message: string;
+}
 const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
   const { authClient, setScene } = useContext(AuthLockContext);
 
   const [loginStatus, setLoginStatus] = useState<string>();
   const [loginType, setLoginType] = useState<string>('mobile');
   const [submitting, setSubmitting] = useState(false);
-
+  const [errorMessage, setErrorMessage] = useState<ErrorMessage>(null);
   const handleLoginSuccess = async user => {
     onLogin?.(user);
   };
@@ -44,8 +47,8 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
   const handleOAuthLogin = (provider: string) => () => {
     authClient.social.authorize(provider, {
       onSuccess: handleLoginSuccess,
-      onError: (code, msg) => {
-        message.error(msg);
+      onError: (code, message) => {
+        setErrorMessage({ code, message });
       },
     });
   };
@@ -70,6 +73,7 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
         setLoginStatus('error');
       }
     } catch (error) {
+      setErrorMessage(error);
       setLoginStatus('error');
       message.error('登录失败，请重试！');
     }
@@ -90,7 +94,7 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
       return false;
     }
   };
-
+  console.log('触发渲染>>>', Date.now());
   return (
     <LoginForm
       activeKey={loginType}
@@ -99,8 +103,8 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
       className="xauth-login"
     >
       <Tab key="account" tab="密码登录">
-        {loginStatus === 'error' && loginType === 'account' && !submitting && (
-          <LoginMessage content="账户或密码错误" />
+        {loginStatus === 'error' && loginType === 'account' && !submitting && errorMessage.message && (
+          <LoginMessage content={errorMessage.message} />
         )}
 
         <Username
@@ -126,7 +130,7 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
       </Tab>
       <Tab key="mobile" tab="验证码登录">
         {loginStatus === 'error' && loginType === 'mobile' && !submitting && (
-          <LoginMessage content="验证码错误" />
+          <LoginMessage content={errorMessage.message} />
         )}
         <Mobile
           name="mobile"

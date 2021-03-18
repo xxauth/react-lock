@@ -17,7 +17,8 @@ const RegisterScene: React.FC<RegisterSceneProps> = ({ config }) => {
   const handleEmailRegister = async ({ email, password }) => {
     try {
       await authClient.registerByEmail(email, password);
-      console.log('注册成功：' + email);
+      message.success('注册成功：' + email);
+      setScene('login');
     } catch (e) {
       message.error('注册失败，请重试！' + e.message);
       throw e;
@@ -27,7 +28,8 @@ const RegisterScene: React.FC<RegisterSceneProps> = ({ config }) => {
   const handlePhoneRegister = async ({ phone, code, password }) => {
     try {
       await authClient.registerByPhoneCode(phone, code, password);
-      console.log('注册成功：' + phone);
+      message.success('注册成功：' + phone);
+      setScene('login');
     } catch (e) {
       message.error('注册失败，请重试！' + e.message);
       throw e;
