@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import LoginForm from './LoginForm';
-import { message, Alert, Button } from 'antd';
+import { message, Alert, Button, Divider, Space } from 'antd';
 
 import { createFromIconfontCN } from '@ant-design/icons';
 import AuthLockContext from '../../context';
@@ -103,9 +103,12 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
       className="xauth-login"
     >
       <Tab key="account" tab="密码登录">
-        {loginStatus === 'error' && loginType === 'account' && !submitting && errorMessage.message && (
-          <LoginMessage content={errorMessage.message} />
-        )}
+        {loginStatus === 'error' &&
+          loginType === 'account' &&
+          !submitting &&
+          errorMessage.message && (
+            <LoginMessage content={errorMessage.message} />
+          )}
 
         <Username
           name="mobile"
@@ -182,16 +185,22 @@ const LoginScene: React.FC<LoginSceneProps> = ({ onLogin, config }) => {
         </div>
       </div>
       <div className="social-connections">
-        其他登录方式
-        {config?.socialConnections?.map(item => (
-          <IconFont
-            title={parsePlatform(item)}
-            key={item}
-            type={`icon-${parsePlatform(item)}`}
-            onClick={handleOAuthLogin(item)}
-            className="icon"
-          />
-        ))}
+        <Divider plain>其他登录方式</Divider>
+        <Space
+          size={48}
+          align="center"
+          style={{ display: 'flex', justifyContent: 'center' }}
+        >
+          {config?.socialConnections?.map(item => (
+            <IconFont
+              title={parsePlatform(item)}
+              key={item}
+              type={`icon-${parsePlatform(item)}`}
+              onClick={handleOAuthLogin(item)}
+              className="icon"
+            />
+          ))}
+        </Space>
       </div>
     </LoginForm>
   );

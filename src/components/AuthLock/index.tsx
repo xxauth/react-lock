@@ -85,8 +85,8 @@ const AuthLock: ForwardRefRenderFunction<any, AuthLockProps> = (
     >
       <Card
         title={_config?.title || '登录'}
-        bordered={true}
-        style={{ width: '420px', background: _config.backgroundStyle }}
+        bordered={!_config.backgroundStyle}
+        style={{ width: '450px', background: _config.backgroundStyle }}
       >
         {sceneRenders[scene]?.({ appId, onLogin, config: _config })}
       </Card>
